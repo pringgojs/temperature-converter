@@ -53,7 +53,11 @@ public class SuhuActivity extends AppCompatActivity implements AdapterView.OnIte
         // button process
         btnConvert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                calculate();
+                if (txtValue.getText().toString().equals("")) {
+                    Toast.makeText(v.getContext(), "Please fill the blank form", Toast.LENGTH_LONG).show();
+                } else {
+                    calculate();
+                }
             }
 
             private void calculate() {
