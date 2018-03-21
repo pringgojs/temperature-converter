@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SuhuActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class TemperatureActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     EditText txtValue;
     TextView lbResult;
     Button btnConvert;
