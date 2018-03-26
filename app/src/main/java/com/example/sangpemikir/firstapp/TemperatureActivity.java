@@ -187,7 +187,7 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
             return "\u212A";
         }
 
-        return "\u00B0";
+        return "\u00B0R";
     }
 
     @Override
