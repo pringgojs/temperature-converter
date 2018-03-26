@@ -1,5 +1,6 @@
 package com.example.sangpemikir.firstapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,7 +26,6 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
 
         txtValue = (EditText) findViewById(R.id.txtValue);
         btnConvert = (Button) findViewById(R.id.btnConvert);
-        lbResult = (TextView) findViewById(R.id.lbResult);
 
         // Spinner element
         final Spinner spConvertFrom = (Spinner) findViewById(R.id.spConvertFrom);
@@ -56,12 +56,18 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
                 if (txtValue.getText().toString().equals("")) {
                     Toast.makeText(v.getContext(), "Please fill the blank form", Toast.LENGTH_LONG).show();
                 } else {
-                    calculate();
+                    String txtConvertTo = spConvertTo.getSelectedItem().toString();
+                    String convertToSimbol = simbolTemp(txtConvertTo);
+                    Double result = calculate();
+
+                    Intent intent = new Intent(TemperatureActivity.this,ShowResultActivity.class);
+                    intent.putExtra("result", result.toString());
+                    intent.putExtra("convertToSimbol", convertToSimbol);
+                    startActivity(intent);
                 }
             }
 
-            private void calculate() {
-                String result = "";
+            private Double calculate() {
                 double res = 0;
                 double inValue = Double.parseDouble(txtValue.getText().toString());
                 String txtConvertFrom = spConvertFrom.getSelectedItem().toString();
@@ -170,8 +176,7 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
                     res = inValue;
                 }
 
-                String simbol = simbolTemp(txtConvertTo);
-                lbResult.setText(String.valueOf(res) + " " + simbol);
+                return res;
             }
         });
     }
@@ -187,7 +192,7 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
             return "\u212A";
         }
 
-        return "\u00B0";
+        return "\u00B0R";
     }
 
     @Override
