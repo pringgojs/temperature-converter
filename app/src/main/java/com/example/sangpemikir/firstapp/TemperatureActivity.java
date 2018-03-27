@@ -21,7 +21,7 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.convert_suhu);
+        setContentView(R.layout.activity_temperature);
 
         txtValue = (EditText) findViewById(R.id.txtValue);
         btnConvert = (Button) findViewById(R.id.btnConvert);
