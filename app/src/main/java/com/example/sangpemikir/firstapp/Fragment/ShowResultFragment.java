@@ -25,14 +25,6 @@ public class ShowResultFragment extends android.support.v4.app.Fragment {
         txtConvertTo.setText(bundle.getString("convertToSimbol"));
 
         getActivity().setTitle("Result"); // set new title
-//        getSupportActionBar().setElevation(0); // remove shadow in actionBar
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // set button back in actionBar
         return viewFragment;
     }
-//
-//    @Override
-//    public boolean onSupportNavigateUp(){
-//        finish();
-//        return true;
-//    }
 }

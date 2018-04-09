@@ -23,34 +23,23 @@ public class TemperatureFragment extends android.support.v4.app.Fragment impleme
     EditText txtValue;
     TextView lbResult;
     Button btnConvert;
+    List<String> categories;
+    Spinner spConvertTo, spConvertFrom;
+    View viewFragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View viewFragment = inflater.inflate(R.layout.activity_temperature, container,false);
+        viewFragment = inflater.inflate(R.layout.activity_temperature, container,false);
         ((MainActivity) getActivity()).setActionBarTitle("Temperature");
-        txtValue = (EditText) viewFragment.findViewById(R.id.txtValue);
-        btnConvert = (Button) viewFragment.findViewById(R.id.btnConvert);
+        initialVariable();
+        dropDownSpinner();
+        createAdapterSpiner();
+        btnConvertClick();
 
-        // Spinner element
-        final Spinner spConvertFrom = (Spinner) viewFragment.findViewById(R.id.spConvertFrom);
-        final Spinner spConvertTo = (Spinner) viewFragment.findViewById(R.id.spConvertTo);
+        return viewFragment;
+    }
 
-        // Spinner Drop down elements
-        List<String> categories = new ArrayList<String>();
-        categories.add("Celcius (\u2103)");
-        categories.add("Fahrenheit (\u2109)");
-        categories.add("Kelvin (\u212A)");
-        categories.add("Réaumur (\u00B0R)");
-
-        // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, categories);
-        // Drop down layout style - list view with radio button
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // attaching data adapter to spinner
-        spConvertFrom.setAdapter(dataAdapter);
-        spConvertTo.setAdapter(dataAdapter);
-
-        // button process
+    private void btnConvertClick() {
         btnConvert.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (txtValue.getText().toString().equals("")) {
@@ -184,8 +173,28 @@ public class TemperatureFragment extends android.support.v4.app.Fragment impleme
                 return res;
             }
         });
+    }
 
-        return viewFragment;
+    private void createAdapterSpiner() {
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, categories);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spConvertFrom.setAdapter(dataAdapter);
+        spConvertTo.setAdapter(dataAdapter);
+    }
+
+    private void dropDownSpinner() {
+        categories = new ArrayList<String>();
+        categories.add("Celcius (\u2103)");
+        categories.add("Fahrenheit (\u2109)");
+        categories.add("Kelvin (\u212A)");
+        categories.add("Réaumur (\u00B0R)");
+    }
+
+    private void initialVariable() {
+        txtValue = (EditText) viewFragment.findViewById(R.id.txtValue);
+        btnConvert = (Button) viewFragment.findViewById(R.id.btnConvert);
+        spConvertFrom = (Spinner) viewFragment.findViewById(R.id.spConvertFrom);
+        spConvertTo = (Spinner) viewFragment.findViewById(R.id.spConvertTo);
     }
 
     private String simbolTemp(String txtConvertTo) {

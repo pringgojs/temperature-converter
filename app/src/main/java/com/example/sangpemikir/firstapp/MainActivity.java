@@ -7,6 +7,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.sangpemikir.firstapp.Fragment.CalculatorFragment;
 import com.example.sangpemikir.firstapp.Fragment.TemperatureFragment;
@@ -26,9 +27,6 @@ public class MainActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_dashboard:
                     fragmentCalculator();
-                    return true;
-                case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
                     return true;
             }
             return false;
