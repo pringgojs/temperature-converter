@@ -1,8 +1,10 @@
-package com.example.sangpemikir.firstapp;
+package com.example.sangpemikir.firstapp.Fragment;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -11,29 +13,27 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.sangpemikir.firstapp.MainActivity;
+import com.example.sangpemikir.firstapp.R;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class TemperatureActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class TemperatureFragment extends android.support.v4.app.Fragment implements AdapterView.OnItemSelectedListener {
     EditText txtValue;
     TextView lbResult;
     Button btnConvert;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_temperature);
-
-        txtValue = (EditText) findViewById(R.id.txtValue);
-        btnConvert = (Button) findViewById(R.id.btnConvert);
-        lbResult = (TextView) findViewById(R.id.lbResult);
+        View viewFragment = inflater.inflate(R.layout.activity_temperature, container,false);
+        ((MainActivity) getActivity()).setActionBarTitle("Temperature");
+        txtValue = (EditText) viewFragment.findViewById(R.id.txtValue);
+        btnConvert = (Button) viewFragment.findViewById(R.id.btnConvert);
 
         // Spinner element
-        final Spinner spConvertFrom = (Spinner) findViewById(R.id.spConvertFrom);
-        final Spinner spConvertTo = (Spinner) findViewById(R.id.spConvertTo);
-
-        // Spinner click listener
-        // spConvertFrom.25setOnItemSelectedListener(this);
-        // spConvertTo.setOnItemSelectedListener(this);
+        final Spinner spConvertFrom = (Spinner) viewFragment.findViewById(R.id.spConvertFrom);
+        final Spinner spConvertTo = (Spinner) viewFragment.findViewById(R.id.spConvertTo);
 
         // Spinner Drop down elements
         List<String> categories = new ArrayList<String>();
@@ -43,7 +43,7 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
         categories.add("Réaumur (\u00B0R)");
 
         // Creating adapter for spinner
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, categories);
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity().getApplicationContext(), R.layout.spinner_item, categories);
         // Drop down layout style - list view with radio button
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // attaching data adapter to spinner
@@ -56,12 +56,23 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
                 if (txtValue.getText().toString().equals("")) {
                     Toast.makeText(v.getContext(), "Please fill the blank form", Toast.LENGTH_LONG).show();
                 } else {
-                    calculate();
+                    String txtConvertTo = spConvertTo.getSelectedItem().toString();
+                    String convertToSimbol = simbolTemp(txtConvertTo);
+                    Double result = calculate();
+
+                    Bundle bundle = new Bundle();
+                    bundle.putString("result", result.toString());
+                    bundle.putString("convertToSimbol", convertToSimbol);
+                    ShowResultFragment showResultFragment = new ShowResultFragment();
+                    showResultFragment.setArguments(bundle);
+
+                    FragmentTransaction fragmentTransaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    fragmentTransaction.replace(R.id.main_menu, showResultFragment);
+                    fragmentTransaction.commit();
                 }
             }
 
-            private void calculate() {
-                String result = "";
+            private Double calculate() {
                 double res = 0;
                 double inValue = Double.parseDouble(txtValue.getText().toString());
                 String txtConvertFrom = spConvertFrom.getSelectedItem().toString();
@@ -170,10 +181,11 @@ public class TemperatureActivity extends AppCompatActivity implements AdapterVie
                     res = inValue;
                 }
 
-                String simbol = simbolTemp(txtConvertTo);
-                lbResult.setText(String.valueOf(res) + " " + simbol);
+                return res;
             }
         });
+
+        return viewFragment;
     }
 
     private String simbolTemp(String txtConvertTo) {
