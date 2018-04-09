@@ -10,7 +10,7 @@ import com.example.sangpemikir.firstapp.R;
 
 public class CalculatorFragment extends android.support.v4.app.Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View viewFrag1 = inflater.inflate(R.layout.activity_calculator, container,false);
+        View viewFrag1 = inflater.inflate(R.layout.fragment_calculator, container,false);
         ((MainActivity) getActivity()).setActionBarTitle("Calculator");
         return viewFrag1;
     }

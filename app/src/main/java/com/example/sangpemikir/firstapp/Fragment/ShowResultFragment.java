@@ -16,7 +16,7 @@ public class ShowResultFragment extends android.support.v4.app.Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        View viewFragment = inflater.inflate(R.layout.activity_show_result, container,false);
+        View viewFragment = inflater.inflate(R.layout.fragment_show_result, container,false);
         ((MainActivity) getActivity()).setActionBarTitle("Result");
         txtResult = (TextView) viewFragment.findViewById(R.id.txtResult);
         txtConvertTo = (TextView) viewFragment.findViewById(R.id.txtConvertTo);

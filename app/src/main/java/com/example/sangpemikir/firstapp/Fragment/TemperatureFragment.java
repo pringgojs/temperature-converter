@@ -29,7 +29,7 @@ public class TemperatureFragment extends android.support.v4.app.Fragment impleme
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        viewFragment = inflater.inflate(R.layout.activity_temperature, container,false);
+        viewFragment = inflater.inflate(R.layout.fragment_temperature, container,false);
         ((MainActivity) getActivity()).setActionBarTitle("Temperature");
         initialVariable();
         dropDownSpinner();
