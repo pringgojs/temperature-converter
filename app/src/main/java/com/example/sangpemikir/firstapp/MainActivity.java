@@ -1,5 +1,6 @@
 package com.example.sangpemikir.firstapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -28,10 +29,18 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_dashboard:
                     fragmentCalculator();
                     return true;
+                case R.id.navigation_maps:
+                    mapsActivity();
+                    return true;
             }
             return false;
         }
     };
+
+    private void mapsActivity() {
+        Intent intent = new Intent(MainActivity.this, MapsActivity.class);
+        startActivity(intent);
+    }
 
     private void fragmentTemperature() {
         TemperatureFragment temperatureFragment = new TemperatureFragment();
