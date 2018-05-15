@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.sangpemikir.firstapp.Fragment.CalculatorFragment;
+import com.example.sangpemikir.firstapp.Fragment.CameraFragment;
 import com.example.sangpemikir.firstapp.Fragment.TemperatureFragment;
 
 public class MainActivity extends AppCompatActivity {
@@ -32,10 +33,20 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.navigation_maps:
                     mapsActivity();
                     return true;
+                case R.id.navigation_camera:
+                    fragmentActivity();
+                    return true;
             }
             return false;
         }
     };
+
+    private void fragmentActivity() {
+        CameraFragment cameraFragment = new CameraFragment();
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.main_menu, cameraFragment);
+        fragmentTransaction.commit();
+    }
 
     private void mapsActivity() {
         Intent intent = new Intent(MainActivity.this, MapsActivity.class);
