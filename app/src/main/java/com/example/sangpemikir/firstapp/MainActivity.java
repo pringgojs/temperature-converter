@@ -34,14 +34,14 @@ public class MainActivity extends AppCompatActivity {
                     mapsActivity();
                     return true;
                 case R.id.navigation_camera:
-                    fragmentActivity();
+                    fragmentCamera();
                     return true;
             }
             return false;
         }
     };
 
-    private void fragmentActivity() {
+    private void fragmentCamera() {
         CameraFragment cameraFragment = new CameraFragment();
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.main_menu, cameraFragment);
